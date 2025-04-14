@@ -1,3 +1,4 @@
+export TERM=xterm-256color
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -11,13 +12,6 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-   export EDITOR='vim'
- else
-   export EDITOR='lvim'
- fi
-
 #alias 
 
 alias cls="clear"
@@ -27,15 +21,7 @@ alias gl="git log"
 alias gp="git push"
 alias gs="git status"
 alias gd="git diff HEAD^ HEAD"
-alias miau="kitty"
-# alias nvim=lvim
-alias lv=lvim
 alias :q=exit
-
-
-alias config='/usr/bin/git --git-dir=/Users/jularthus/.config.git/ --work-tree=/Users/jularthus'
-
-export PATH=/Users/jularthus/.local/bin:$PATH
 
 unsetopt nomatch
 
@@ -86,10 +72,3 @@ function devdocker() {
     fi
 }
 alias dd=devdocker
-
-#AFS
-afs() {
-kinit -f jules-arthus.klein@CRI.EPITA.FR
-cd ~
-sshfs -o reconnect -o volname=afs jules-arthus.klein@ssh.cri.epita.fr:/afs/cri.epita.fr/user/j/ju/jules-arthus.klein/u/ afs
-}

@@ -25,7 +25,7 @@ WORKDIR /app
 
 # Copy your C code, Makefile, and custom Zsh config file into the container
 COPY . /app
-COPY .zshrc /root/.zshrc  
+COPY ./zshrc /root/.zshrc  
 COPY ./bigpathgreen.zsh-theme /root/.oh-my-zsh/custom/themes/
 
 # Set the default shell to zsh and run the shell

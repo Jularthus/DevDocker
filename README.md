@@ -1,7 +1,7 @@
 # DevDocker
 
-Le Docker pour les utilisateurs de MacOS qui veulent une façon plus simple de
-débugger leur code bas-niveau !
+Le Docker pour les utilisateurs qui veulent une façon plus simple de
+débugger leur code bas-niveau quand leur PC leur fait des misères !
 
 ## Installation
 

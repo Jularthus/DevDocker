@@ -11,6 +11,12 @@ Build l'image avec :
 docker build -t dev-env-docker .
 ```
 
+OU
+
+```bash
+docker buildx build --platform linux/amd64 -t dev-env-docker:latest .
+```
+
 Voici la config recommandée pour lancer le Docker simplement :
 
 ```bash

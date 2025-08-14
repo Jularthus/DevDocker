@@ -11,25 +11,19 @@ Build l'image avec :
 docker build -t dev-env-docker .
 ```
 
-OU
-
-```bash
-docker buildx build --platform linux/amd64 -t dev-env-docker:latest .
-```
-
 Voici la config recommandée pour lancer le Docker simplement :
 
 ```bash
 devdocker () {
 	if [ $# -eq 0 ]
 	then
-		docker run --platform linux/amd64 -it --rm -v "$(pwd)":/app dev-env-docker
+		docker run -it --rm -v "$(pwd)":/app dev-env-docker
 	else
 		if [ "$1" = "check" ] && [ -n "$2" ]
 		then
-			docker run --platform linux/amd64 --rm -v "$(pwd)":/app dev-env-docker sh -c "valgrind --leak-check=full --show-leak-kinds=all ./$2"
+			docker run --rm -v "$(pwd)":/app dev-env-docker sh -c "valgrind --leak-check=full --show-leak-kinds=all ./$2"
 		else
-			docker run --platform linux/amd64 --rm -v "$(pwd)":/app dev-env-docker sh -c "$*"
+			docker run --rm -v "$(pwd)":/app dev-env-docker sh -c "$*"
 		fi
 	fi
 }

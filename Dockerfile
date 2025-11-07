@@ -13,6 +13,8 @@ RUN apt-get update && \
   zsh \
   curl \
   nasm \
+  tree \
+  iproute2 \
   && apt-get clean
 
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended

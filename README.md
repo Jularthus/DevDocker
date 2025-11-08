@@ -21,9 +21,9 @@ devdocker () {
     else
         if [ "$1" = "check" ] && [ -n "$2" ]
         then
-            docker run --rm -v "$(git rev-parse --show-toplevel)":/app -w "/app$REL_PATH" dev-env-docker sh -c "cd $REL_PATH ; valgrind --leak-check=full --show-leak-kinds=all ./$2"
+            docker run --rm -v "$(git rev-parse --show-toplevel)":/app -w "/app$REL_PATH" dev-env-docker sh -c "valgrind --leak-check=full --show-leak-kinds=all ./$2"
         else
-            docker run --rm -v "$(git rev-parse --show-toplevel)":/app -w "/app$REL_PATH" dev-env-docker sh -c "cd $REL_PATH ; $*"
+            docker run --rm -v "$(git rev-parse --show-toplevel)":/app -w "/app$REL_PATH" dev-env-docker sh -c "$*"
         fi
     fi
 }

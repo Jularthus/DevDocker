@@ -10,5 +10,6 @@ source $ZSH/oh-my-zsh.sh
 #alias 
 alias cls="clear"
 alias :q=exit
+alias mmake="make clean; make && make check"
 
 unsetopt nomatch

@@ -1,6 +1,7 @@
 # DevDocker
 
-Le Docker pour les utilisateurs qui veulent une façon plus simple de débugger leur code bas-niveau quand leur PC leur fait des misères !
+Le Docker pour les utilisateurs qui veulent une façon plus simple de débugger
+leur code bas-niveau quand leur PC leur fait des misères !
 
 ## Installation
 
@@ -10,20 +11,21 @@ Build l'image avec :
 docker build -t dev-env-docker .
 ```
 
-Voici la config recommandée pour lancer le Docker simplement (attention, Zsh est obligatoire) :
+Voici la config recommandée pour lancer le Docker simplement (attention, Zsh est
+obligatoire) :
 
 ```bash
 devdocker () {
     if [ $# -eq 0 ];
     then
         REL_PATH="${PWD/#$(git rev-parse --show-toplevel)/}"
-        docker run -it --rm -v "$(git rev-parse --show-toplevel)":/app -w "/app$REL_PATH" dev-env-docker
+        docker run -it --rm -v "$(git rev-parse --show-toplevel 2>/dev/null || pwd)":/app -w "/app$REL_PATH" dev-env-docker
     else
         if [ "$1" = "check" ] && [ -n "$2" ]
         then
-            docker run --rm -v "$(git rev-parse --show-toplevel)":/app -w "/app$REL_PATH" dev-env-docker sh -c "valgrind --leak-check=full --show-leak-kinds=all ./$2"
+            docker run --rm -v "$(git rev-parse --show-toplevel 2>/dev/null || pwd)":/app -w "/app$REL_PATH" dev-env-docker sh -c "valgrind --leak-check=full --show-leak-kinds=all ./$2"
         else
-            docker run --rm -v "$(git rev-parse --show-toplevel)":/app -w "/app$REL_PATH" dev-env-docker sh -c "$*"
+            docker run --rm -v "$(git rev-parse --show-toplevel 2>/dev/null || pwd)":/app -w "/app$REL_PATH" dev-env-docker sh -c "$*"
         fi
     fi
 }

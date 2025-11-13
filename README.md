@@ -18,7 +18,8 @@ obligatoire) :
 devdocker () {
     if [ $# -eq 0 ];
     then
-        REL_PATH="${PWD/#$(git rev-parse --show-toplevel)/}"
+        top=$(git rev-parse --show-toplevel 2>/dev/null || true)
+        REL_PATH="${PWD#$top}"
         docker run -it --rm -v "$(git rev-parse --show-toplevel 2>/dev/null || pwd)":/app -w "/app$REL_PATH" dev-env-docker
     else
         if [ "$1" = "check" ] && [ -n "$2" ]
@@ -29,6 +30,7 @@ devdocker () {
         fi
     fi
 }
+alias dd=devdocker
 ```
 
 On a alors :

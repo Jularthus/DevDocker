@@ -11,6 +11,13 @@ Build l'image avec :
 docker build -t dev-env-docker .
 ```
 
+ATTENTION: Si tu veux utiliser ce docker pour faire de l'assembleur x86-64,
+build avec:
+
+```bash
+docker build --platform=linux/amd64 -t dev-env-docker .
+```
+
 Voici la config recommandée pour lancer le Docker simplement (attention, Zsh est
 obligatoire) :
 
@@ -18,8 +25,14 @@ obligatoire) :
 devdocker () {
     if [ $# -eq 0 ];
     then
-        top=$(git rev-parse --show-toplevel 2>/dev/null || true)
-        REL_PATH="${PWD#$top}"
+        top=$(git rev-parse --show-toplevel 2>/dev/null || echo "")
+
+        if [ -n "$top" ]; then
+            REL_PATH="${PWD#$top}"
+        else
+            REL_PATH=""
+            top="$PWD"
+        fi
         docker run -it --rm -v "$(git rev-parse --show-toplevel 2>/dev/null || pwd)":/app -w "/app$REL_PATH" dev-env-docker
     else
         if [ "$1" = "check" ] && [ -n "$2" ]

@@ -17,6 +17,7 @@ RUN apt-get update && \
   iproute2 \
   bc \
   libcriterion-dev \
+  python3 \
   && apt-get clean
 
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended

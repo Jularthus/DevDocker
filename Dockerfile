@@ -18,6 +18,7 @@ RUN apt-get update && \
   bc \
   libcriterion-dev \
   python3 \
+  python3.12-venv \
   && apt-get clean
 
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended

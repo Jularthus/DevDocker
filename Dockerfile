@@ -16,9 +16,12 @@ RUN apt-get update && \
   tree \
   iproute2 \
   bc \
+  vim \
   libcriterion-dev \
   python3 \
   python3.12-venv \
+  autoconf \
+  autoconf-archive \
   && apt-get clean
 
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended

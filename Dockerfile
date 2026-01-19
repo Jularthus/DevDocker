@@ -1,35 +1,33 @@
-FROM ubuntu:24.04
+FROM nixos/nix
 
-ENV DEBIAN_FRONTEND=noninteractive
+RUN nix-channel --update
 
-RUN apt-get update && \
-  apt-get install -y \
-  build-essential \
-  gcc \
-  g++ \
-  make \
-  valgrind \
-  git \
-  zsh \
-  curl \
-  nasm \
-  tree \
-  iproute2 \
-  bc \
-  vim \
-  libcriterion-dev \
-  python3 \
-  python3.12-venv \
-  autoconf \
-  autoconf-archive \
-  && apt-get clean
+RUN nix-env -iA nixpkgs.gcc \
+        nixpkgs.gnumake \
+        nixpkgs.valgrind \
+        nixpkgs.gitMinimal \
+        nixpkgs.zsh \
+        nixpkgs.curl \
+        nixpkgs.nasm \
+        nixpkgs.tree \
+        nixpkgs.iproute2 \
+        nixpkgs.bc \
+        nixpkgs.vim \
+        nixpkgs.criterion \
+        nixpkgs.python312 \
+        nixpkgs.python312Packages.virtualenv \
+        nixpkgs.autoconf \
+        nixpkgs.autoconf-archive \
+        nixpkgs.gnused \
+        nixpkgs.glibc
 
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 WORKDIR /app
-
 COPY . /app
+
 COPY ./zshrc /root/.zshrc  
 COPY ./bigpathgreen.zsh-theme /root/.oh-my-zsh/custom/themes/
 
-CMD ["/bin/zsh"]
+ENV PATH="/root/.nix-profile/bin:/nix/var/nix/profiles/default/bin:${PATH}"
+CMD ["zsh"]
